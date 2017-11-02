@@ -5,15 +5,17 @@ Created on June 2017
 author: Babis Babalis
 """
 
-import arcpy
 import sys
+import arcpy
+from arcpy import env
 
 
 class Network_Operations:
     """ This class implements basic network operations.
     """
-    def __init__(self):
-        pass
+    def __init__(self, env_path):
+        #TODO not sure why this is happening here. try to figure out
+        env.workspace = env_path
 
     def get_point_coordinates():
         """ This method acquires the coordinates of a point in the map.
