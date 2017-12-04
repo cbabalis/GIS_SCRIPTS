@@ -24,6 +24,7 @@ class Extraction:
         self.file_contents = []
         # read the file
         self.read_folder(src_folder)
+        pdb.set_trace()
         # process data
         self.process_file()
         # and write data to a new file
@@ -67,3 +68,11 @@ class Extraction:
         be written.
         """
         pass
+
+def main():
+    src = str(sys.argv[1])
+    dest = str(sys.argv[2])
+    Extraction(src, dest)
+
+if __name__ == "__main__":
+    main()
