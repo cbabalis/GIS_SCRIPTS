@@ -22,6 +22,8 @@ class Extraction:
 
     def __init__(self, src_folder, dest_file):
         self.file_contents = []
+        self.src_folder = src_folder
+        self.dest_file = dest_file
         # read the file
         self.read_folder(src_folder)
         pdb.set_trace()
@@ -59,6 +61,24 @@ class Extraction:
         """ This method processes a file and extracts only the data
         the user is interested for.
         """
+        # open a new workbook to write the result there
+        workbook = xlwt.Workbook()
+        write_sheet = workbook.add_sheet('Results')
+        # search a sheet by row (usually names are there).
+        for sheet in self.file_contents:
+            for row_index in range(sheet.nrows):
+                row = sheet.row(row_index)
+                # If the value is found, then
+                # save all row
+                for col_index ,cell in enumerate(row):
+                    if cell.value == key:
+                        write_sheet.write(row_idx, col_idx, cell)
+        workbook.save(self.dest_file)
+
+    def extract_routes(self):
+        pass
+
+    def extract_parts_of_interest(self):
         pass
 
     def write_output(self, write_filename=""):
