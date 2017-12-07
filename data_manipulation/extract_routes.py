@@ -13,6 +13,7 @@ In particular, two scenarios are being examined. Given a file of GPS points:
 
 import pdb
 import xlrd
+import xlwt
 import os
 import sys
 
@@ -26,7 +27,6 @@ class Extraction:
         self.dest_file = dest_file
         # read the file
         self.read_folder(src_folder)
-        pdb.set_trace()
         # process data
         self.process_file()
         # and write data to a new file
@@ -57,7 +57,7 @@ class Extraction:
         # and append it to the list of files
         self.file_contents.append(worksheet)
 
-    def process_file(self):
+    def process_file(self, key="ACC ON"):
         """ This method processes a file and extracts only the data
         the user is interested for.
         """
@@ -70,10 +70,17 @@ class Extraction:
                 row = sheet.row(row_index)
                 # If the value is found, then
                 # save all row
-                for col_index ,cell in enumerate(row):
-                    if cell.value == key:
-                        write_sheet.write(row_idx, col_idx, cell)
+                for col_index, cell in enumerate(row):
+                    if key not in str(cell.value):
+                        continue
+                    else:
+                        self._write_row(row, row_index, write_sheet)
         workbook.save(self.dest_file)
+
+    def _write_row(self, row, row_index, write_sheet):
+        """ This method writes a row of data to the new excel file"""
+        for col_index, cell in enumerate(row):
+            write_sheet.write(row_index, col_index, str(cell.value)) #TODO we are here
 
     def extract_routes(self):
         pass
