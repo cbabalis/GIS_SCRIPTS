@@ -80,7 +80,7 @@ class Extraction:
     def _write_row(self, row, row_index, write_sheet):
         """ This method writes a row of data to the new excel file"""
         for col_index, cell in enumerate(row):
-            write_sheet.write(row_index, col_index, str(cell.value)) #TODO we are here
+            write_sheet.write(row_index, col_index, str(cell.value))
 
     def extract_routes(self):
         pass
